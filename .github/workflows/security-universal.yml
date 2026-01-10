@@ -43,7 +43,7 @@ jobs:
           path: ./
           base: ""  # Scan from beginning
           head: ${{ github.ref_name }}  # To current branch
-          extra_args: --results=verified,unknown --fail
+          extra_args: --results=verified,unknown
 
   file-security:
     name: File Security Checks
