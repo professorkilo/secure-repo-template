@@ -26,6 +26,24 @@ One security baseline for all your projects - Python, JavaScript, Go, Rust, Dock
 
 ---
 
+## ⚠️ Expected Template Behavior
+
+This is a **template repository** with no source code. The following behaviors are normal:
+
+### GitHub Actions
+- **CodeQL Analysis**: All 4 language jobs (Python, Go, JavaScript, Ruby) will skip cleanly with "no source files found" messages. When you add code in any language, CodeQL will automatically analyze it.
+- **Dependabot**: Will show errors for package ecosystems without files (e.g., "Cargo.toml not found"). Once you add a `Cargo.toml`, `package.json`, `go.mod`, etc., Dependabot will automatically start monitoring those dependencies.
+
+These are **not failures** - the workflows are designed to gracefully handle missing code in template repositories.
+
+### When You Create a Repo from This Template
+1. Add your source code
+2. Workflows automatically detect the languages present
+3. Security scanning begins immediately for your languages
+4. Dependabot starts monitoring your dependency files
+
+---
+
 ## 🚀 Quick Start
 
 ### Use This Template
