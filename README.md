@@ -114,9 +114,6 @@ git commit -m "Add security scanning"
 git push
 ```
 
-8. # Create .env file
-cp .env.example .env
-# Edit .env with your credentials
 ---
 
 ## 📁 What's Included
