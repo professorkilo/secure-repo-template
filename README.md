@@ -1,6 +1,6 @@
 # 🔒 Universal Security Template
 
-One security baseline for all your projects - Python, JavaScript, Go, Rust, Docker, Terraform, PowerShell, and more.
+One security baseline for all my projects - Python, JavaScript, Go, Rust, Docker, Terraform, PowerShell, and more.
 
 ## 🛡️ Security Features
 
