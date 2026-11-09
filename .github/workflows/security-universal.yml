@@ -102,6 +102,33 @@ jobs:
             shellcheck "$script" || true
           done
 
+  semgrep:
+    name: Semgrep SAST
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+
+      - name: Run Semgrep
+        run: |
+          pip install semgrep --quiet
+          semgrep \
+            --config=auto \
+            --sarif \
+            --output=semgrep.sarif \
+            --error \
+            . || true
+
+      - name: Upload SARIF to Security tab
+        if: always()
+        uses: github/codeql-action/upload-sarif@52cf1852265d99e9bea071b03366fc777a602909  # codeql-bundle-v2.27.4
+        with:
+          sarif_file: semgrep.sarif
+          category: semgrep
+        continue-on-error: true  # sarif upload requires Advanced Security; skip gracefully on free plans
+
   dependency-audit:
     name: Dependency Security Audit
     runs-on: ubuntu-latest

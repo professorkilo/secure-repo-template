@@ -1,50 +1,52 @@
-# 🔒 Universal Security Template
+# Universal Security Template
 
-One security baseline for all my projects - Python, JavaScript, Go, Rust, Docker, Terraform, PowerShell, and more.
+One security baseline for all projects - Python, JavaScript, Go, Rust, Docker, Terraform, PowerShell, and more.
 
-## 🛡️ Security Features
+## Security Features
 
 ### Core Security (All Projects)
-- ✅ **Dual Secret Scanning** - Gitleaks + TruffleHog with live verification
-- ✅ **File Security** - Automatic detection of credential files
-- ✅ **Dependabot** - Automated updates for 8 ecosystems
-- ✅ **Dependency Auditing** - Vulnerability scanning per ecosystem
-- ✅ **Pre-commit Hooks** - Local security scanning included
-- ✅ **CodeQL Analysis** - Multi-language code vulnerability detection
-- ✅ **Weekly Scans** - Scheduled security audits
-- ✅ **Comprehensive .gitignore** - Protection for all languages
+- Dual Secret Scanning - Gitleaks + TruffleHog with live verification
+- File Security - Automatic detection of credential files
+- Dependabot - Automated updates for 8 ecosystems
+- Dependency Auditing - Vulnerability scanning per ecosystem
+- Pre-commit Hooks - Local security scanning included
+- CodeQL Analysis - Multi-language code vulnerability detection
+- Semgrep SAST - Static analysis across all languages
+- OSSF Scorecard - Supply chain security posture scoring
+- Weekly Scans - Scheduled security audits
+- Comprehensive .gitignore - Protection for all languages
 
 ### Ecosystem-Specific Auditing
-- **Python:** pip-audit for vulnerability scanning
-- **Node.js:** npm audit for dependency security
-- **Go:** govulncheck for Go modules
-- **Rust:** cargo-audit for Cargo packages
-- **Docker:** hadolint for Dockerfile security
-- **Terraform:** tfsec for infrastructure security
+- **Python:** pip-audit
+- **Node.js:** npm audit
+- **Go:** govulncheck
+- **Rust:** cargo-audit
+- **Docker:** hadolint
+- **Terraform:** tfsec
 - **PowerShell/NuGet:** dotnet package vulnerability scanning
 - **GitHub Actions:** Dependabot monitoring
 
 ---
 
-## ⚠️ Expected Template Behavior
+## Expected Template Behavior
 
-This is a **template repository** with no source code. The following behaviors are normal:
+This is a **template repository** with no source code. The following behaviors are expected.
 
 ### GitHub Actions
-- **CodeQL Analysis**: All 4 language jobs (Python, Go, JavaScript, Ruby) will skip cleanly with "no source files found" messages. When you add code in any language, CodeQL will automatically analyze it.
-- **Dependabot**: Will show errors for package ecosystems without files (e.g., "Cargo.toml not found"). Once you add a `Cargo.toml`, `package.json`, `go.mod`, etc., Dependabot will automatically start monitoring those dependencies.
+- **CodeQL Analysis**: All language jobs (Python, Go, JavaScript, Ruby) will skip cleanly with "no source files found" messages. When you add code, CodeQL will automatically analyze it.
+- **Dependabot**: Will show errors for ecosystems without manifest files (e.g., "Cargo.toml not found"). Once you add the relevant file, Dependabot will start monitoring automatically.
 
-These are **not failures** - the workflows are designed to gracefully handle missing code in template repositories.
+These are **not failures** - the workflows handle missing code gracefully for template repositories.
 
 ### When You Create a Repo from This Template
 1. Add your source code
 2. Workflows automatically detect the languages present
-3. Security scanning begins immediately for your languages
+3. Security scanning begins immediately
 4. Dependabot starts monitoring your dependency files
 
 ---
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Use This Template
 
@@ -61,44 +63,25 @@ These are **not failures** - the workflows are designed to gracefully handle mis
    ./setup_project.sh
    ```
 
-5. **Enable Security Features** in Settings → Security:
-   - ✅ Dependabot alerts
-   - ✅ Dependabot security updates  
-   - ✅ Secret scanning
-   - ✅ Push protection
+5. **Enable Security Features** in Settings > Security:
+   - Dependabot alerts
+   - Dependabot security updates
+   - Secret scanning
+   - Push protection
 
-6. **Configure Branch Protection** in Settings → Branches → Add rule:
+6. **Configure Branch Protection** in Settings > Branches > Add rule:
    - Branch name: `main`
-   - ✅ Require pull request before merging
-   - ✅ Require status checks to pass:
-     - Secret Detection
-     - File Security Checks
-     - Dependency Security Audit
-     - CodeQL
-   - ✅ Require branches up to date
+   - Require pull request before merging
+   - Require status checks to pass: Secret Detection, File Security Checks, Dependency Security Audit, CodeQL
+   - Require branches up to date
 
-7. **Start coding securely!**
-
-### Manual Setup
-
-```bash
-# Clone this template
-git clone https://github.com/professorkilo/secure-repo-template.git my-project
-cd my-project
-
-# Run setup
-./setup_project.sh
-
-# Start coding securely!
-```
+7. Start coding.
 
 ### Add to Existing Repository
 
 ```bash
-# In your existing project
 cd your-project
 
-# Download security workflows
 curl -o .github/workflows/security-universal.yml \
   https://raw.githubusercontent.com/professorkilo/secure-repo-template/main/.github/workflows/security-universal.yml
 
@@ -108,7 +91,6 @@ curl -o .github/dependabot.yml \
 curl -o .github/workflows/codeql-analysis.yml \
   https://raw.githubusercontent.com/professorkilo/secure-repo-template/main/.github/workflows/codeql-analysis.yml
 
-# Commit
 git add .github/
 git commit -m "Add security scanning"
 git push
@@ -116,15 +98,17 @@ git push
 
 ---
 
-## 📁 What's Included
+## What's Included
 
 ```
 secure-repo-template/
 ├── .github/
 │   ├── workflows/
 │   │   ├── security-universal.yml    # Core security scanning (all 8 ecosystems)
-│   │   └── codeql-analysis.yml       # Code vulnerability analysis
-│   └── dependabot.yml                # Automated dependency updates (8 ecosystems)
+│   │   ├── codeql-analysis.yml       # Code vulnerability analysis
+│   │   └── scorecard.yml             # OSSF supply chain security scoring
+│   ├── CODEOWNERS                    # Code review enforcement
+│   └── pull_request_template.md      # PR security checklist
 ├── .gitignore                        # Universal ignore patterns
 ├── .pre-commit-config.yaml           # Local security hooks
 ├── LICENSE                           # MIT License
@@ -135,97 +119,96 @@ secure-repo-template/
 
 ---
 
-## 🔒 Security Baseline
+## Security Baseline
 
 Every project created from this template automatically gets:
 
 | Feature | Tool | Coverage |
 |---------|------|----------|
-| **Secret Detection** | Gitleaks + TruffleHog | 800+ secret types with live API verification |
-| **Code Analysis** | CodeQL | Multi-language vulnerability detection |
-| **File Security** | Custom script | Blocks .pem, .key, .env, certificates |
-| **Dependency Audits** | Multiple tools | Python, Node.js, Go, Rust, Docker, Terraform, .NET |
-| **Automated Updates** | Dependabot | 8 ecosystems, weekly schedule |
-| **Pre-commit Hooks** | Multiple tools | Local scanning before commit |
+| Secret Detection | Gitleaks + TruffleHog | 800+ secret types with live API verification |
+| Code Analysis | CodeQL | Multi-language vulnerability detection |
+| Static Analysis | Semgrep | OWASP, security-audit, and language-specific rulesets |
+| Supply Chain | OSSF Scorecard | 18 security checks, weekly scoring |
+| File Security | Custom script | Blocks .pem, .key, .env, certificates |
+| Dependency Audits | Multiple tools | Python, Node.js, Go, Rust, Docker, Terraform, .NET |
+| Automated Updates | Dependabot | 8 ecosystems, weekly schedule |
+| Pre-commit Hooks | Multiple tools | Local scanning before commit |
 
 ---
 
-## 🎯 Supported Ecosystems
-
-Dependabot automatically monitors (only scans what exists in your repo):
+## Supported Ecosystems
 
 | Ecosystem | Manifest Files | Security Tool |
 |-----------|----------------|---------------|
-| **GitHub Actions** | `.github/workflows/*.yml` | Dependabot |
-| **Python** | requirements.txt, setup.py, pyproject.toml | pip-audit |
-| **Node.js** | package.json, yarn.lock | npm audit |
-| **Go** | go.mod, go.sum | govulncheck |
-| **Rust** | Cargo.toml, Cargo.lock | cargo-audit |
-| **Docker** | Dockerfile, docker-compose.yml | hadolint |
-| **Terraform** | *.tf files | tfsec |
-| **PowerShell/NuGet** | *.csproj, packages.config | dotnet |
+| GitHub Actions | `.github/workflows/*.yml` | Dependabot |
+| Python | requirements.txt, setup.py, pyproject.toml | pip-audit |
+| Node.js | package.json, yarn.lock | npm audit |
+| Go | go.mod, go.sum | govulncheck |
+| Rust | Cargo.toml, Cargo.lock | cargo-audit |
+| Docker | Dockerfile, docker-compose.yml | hadolint |
+| Terraform | *.tf files | tfsec |
+| PowerShell/NuGet | *.csproj, packages.config | dotnet |
 
-**No configuration needed** - if the files exist, Dependabot and security tools scan them automatically!
+No configuration needed - if the files exist, Dependabot and security tools scan them automatically.
 
 ---
 
-## 💡 Best Practices
+## Best Practices
 
 ### Never Commit Secrets
 ```bash
-# ❌ BAD
+# BAD
 git add .env
 git commit -m "Add config"
 
-# ✅ GOOD - Use environment variables
+# GOOD - Use environment variables
 export API_KEY="your-key"
 
-# ✅ GOOD - Use GitHub Secrets in Actions
+# GOOD - Use GitHub Secrets in Actions
 ${{ secrets.API_KEY }}
 ```
 
 ### Keep Dependencies Updated
-- ✅ Review Dependabot PRs weekly (arrive Mondays)
-- ✅ Update to patched versions within 7 days
-- ✅ Test before merging to production
-- ✅ Pin versions with security constraints
+- Review Dependabot PRs weekly (arrive Mondays)
+- Update to patched versions within 7 days
+- Test before merging to production
+- Pin versions with security constraints
 
 ### Use Pre-Commit Hooks
 ```bash
-# Already included in template!
 pre-commit install
-
-# Test all files
 pre-commit run --all-files
 ```
 
 ### Scan Regularly
-- ✅ **Pre-commit** - Local hooks scan before commit
-- ✅ **On Push** - GitHub Actions scan every push/PR
-- ✅ **Weekly** - Scheduled scans run Sundays at midnight UTC
-- ✅ **On Demand** - Manually trigger from Actions tab
+- **Pre-commit** - Local hooks scan before commit
+- **On Push** - GitHub Actions scan every push/PR
+- **Weekly** - Scheduled scans run Sundays at midnight UTC
+- **On Demand** - Manually trigger from Actions tab
 
 ---
 
-## 📊 What Gets Scanned
+## What Gets Scanned
 
 | Asset | Tool | Frequency |
 |-------|------|-----------|
-| **Commit history** | Gitleaks + TruffleHog | Every push + Weekly |
-| **Code vulnerabilities** | CodeQL | Every push + Weekly |
-| **Credential files** | Custom script | Every push + Weekly |
-| **Python deps** | pip-audit | Every push + Weekly |
-| **Node.js deps** | npm audit | Every push + Weekly |
-| **Go modules** | govulncheck | Every push + Weekly |
-| **Rust deps** | cargo-audit | Every push + Weekly |
-| **Docker configs** | hadolint | Every push + Weekly |
-| **Terraform** | tfsec | Every push + Weekly |
-| **.NET deps** | dotnet | Every push + Weekly |
-| **GitHub Actions** | Dependabot | Weekly (Mondays) |
+| Commit history | Gitleaks + TruffleHog | Every push + Weekly |
+| Code vulnerabilities | CodeQL | Every push + Weekly |
+| Static analysis | Semgrep | Every push + Weekly |
+| Supply chain posture | OSSF Scorecard | Every push to main + Weekly |
+| Credential files | Custom script | Every push + Weekly |
+| Python deps | pip-audit | Every push + Weekly |
+| Node.js deps | npm audit | Every push + Weekly |
+| Go modules | govulncheck | Every push + Weekly |
+| Rust deps | cargo-audit | Every push + Weekly |
+| Docker configs | hadolint | Every push + Weekly |
+| Terraform | tfsec | Every push + Weekly |
+| .NET deps | dotnet | Every push + Weekly |
+| GitHub Actions | Dependabot | Weekly (Mondays) |
 
 ---
 
-## 🔧 Customization
+## Customization
 
 ### Adjust Scan Frequency
 
@@ -240,14 +223,12 @@ schedule:
 ### Add More Security Tools
 
 Edit `.github/workflows/security-universal.yml` to add:
-- **Semgrep** - Static analysis
-- **Trivy** - Container/IaC scanning
+- **Trivy** - Container and IaC scanning
 - **Bandit** - Python security linting
 - **gosec** - Go security checker
 
 ### Disable CodeQL (Optional)
 
-If you want minimal setup without code analysis:
 ```bash
 git rm .github/workflows/codeql-analysis.yml
 git commit -m "Remove CodeQL for minimal setup"
@@ -255,125 +236,84 @@ git commit -m "Remove CodeQL for minimal setup"
 
 ---
 
-## 📚 Documentation
+## Documentation
 
 - [SECURITY.md](SECURITY.md) - Security policy and vulnerability reporting
 - [GitHub Security Best Practices](https://docs.github.com/en/code-security)
 - [Dependabot Configuration](https://docs.github.com/en/code-security/dependabot)
 - [CodeQL Documentation](https://codeql.github.com/docs/)
+- [OSSF Scorecard](https://github.com/ossf/scorecard)
+- [Semgrep Rules](https://semgrep.dev/r)
 
 ---
 
-## 🚦 Workflow Status
+## Workflow Status
 
 ![Security Scanning](https://github.com/professorkilo/secure-repo-template/workflows/Universal%20Security%20Scanning/badge.svg)
 ![CodeQL](https://github.com/professorkilo/secure-repo-template/workflows/CodeQL/badge.svg)
 
 ---
 
-## ❓ FAQ
+## FAQ
 
-### General Questions
+**Q: Will this work with private repositories?**
+A: Yes. All features work with private repos. GitHub Actions minutes may apply based on your plan. OSSF Scorecard `publish_results` requires a public repo; set it to `false` for private repos.
 
-**Q: Will this work with private repositories?**  
-A: Yes! All features work with private repos. GitHub Actions minutes may apply based on your plan.
+**Q: What if I don't use Python/Node/Go/Rust?**
+A: Workflows automatically detect what you use. Unused ecosystems are silently skipped.
 
-**Q: What if I don't use Python/Node/Go/Rust?**  
-A: Workflows automatically detect what you use. No manual configuration needed. Unused ecosystems are silently skipped.
+**Q: Do I need to install anything locally?**
+A: Only if you want pre-commit hooks. Everything else runs in GitHub Actions automatically.
 
-**Q: Do I need to install anything locally?**  
-A: Only if you want pre-commit hooks. Otherwise, everything runs in GitHub Actions automatically.
+**Q: What happens if a secret is found?**
+A: The workflow fails with a non-zero exit code. Rotate or revoke the credential immediately, remove it from git history using `git filter-repo`, and store it in GitHub Secrets or a vault.
 
-### Security Questions
-
-**Q: What happens if a secret is found?**  
-A: The workflow fails with exit code 183. You must:
-1. Rotate/revoke the credential immediately
-2. Remove from git history using `git filter-repo` or BFG Repo-Cleaner
-3. Store properly in GitHub Secrets or a vault
-
-**Q: How do I ignore false positives?**  
-A: Add `# trufflehog:ignore` comment on the line with the false positive:
+**Q: How do I ignore false positives?**
+A: Add `# trufflehog:ignore` on the line with the false positive:
 ```python
 test_key = "fake_key_12345"  # trufflehog:ignore
 ```
 
-**Q: Are pre-commit hooks required?**  
-A: No, they're optional. GitHub Actions will catch secrets even without pre-commit hooks, but local hooks catch issues earlier.
+**Q: Why did CodeQL fail on my new repo?**
+A: CodeQL needs actual code to analyze. It will skip on empty or template repos and work once you add source files.
 
-### Workflow Questions
+**Q: Can I run workflows manually?**
+A: Yes. Go to Actions tab > select workflow > click "Run workflow".
 
-**Q: Why did CodeQL fail on my new repo?**  
-A: CodeQL needs actual code to analyze. It's normal for it to skip on empty repos. It will work once you add code.
+**Q: Why am I getting many Dependabot PRs?**
+A: Dependency groups are enabled for Python and Node.js to reduce PR volume. If still too many, reduce `open-pull-requests-limit` in `dependabot.yml`.
 
-**Q: Can I run workflows manually?**  
-A: Yes! Go to Actions tab → Select workflow → Click "Run workflow" button.
-
-**Q: How long do security scans take?**  
-A: Typically 1-3 minutes for small repos, up to 10 minutes for large repos with many dependencies.
-
-### Dependabot Questions
-
-**Q: Why am I getting so many Dependabot PRs?**  
-A: Dependency groups are enabled for Python and Node.js to reduce PR spam. If still too many, adjust `open-pull-requests-limit` in `dependabot.yml`.
-
-**Q: Can Dependabot automatically merge updates?**  
-A: Yes, but requires additional configuration. See [Dependabot auto-merge docs](https://docs.github.com/en/code-security/dependabot/working-with-dependabot/automating-dependabot-with-github-actions).
-
-### Troubleshooting
-
-**Q: Workflow failing with "permission denied"?**  
-A: Check Settings → Actions → General → Workflow permissions. Set to "Read and write permissions".
-
-**Q: Pre-commit hooks not working?**  
-A: Make sure you ran `pre-commit install` in your local repo after cloning.
-
-**Q: Getting rate limited by GitHub?**  
-A: Add a GitHub token in Settings → Secrets → Actions → Add `GH_TOKEN` for higher rate limits.
+**Q: Workflow failing with "permission denied"?**
+A: Check Settings > Actions > General > Workflow permissions. Set to "Read and write permissions".
 
 ---
 
-## 📝 License
+## License
 
-MIT License - Use freely for personal and commercial projects. See [LICENSE](LICENSE) file.
-
----
-
-## 🔐 Reporting Security Issues
-
-**Found a vulnerability in this template?**
-
-See [SECURITY.md](SECURITY.md) for reporting instructions.
-
-**⚠️ Do not open public issues for security vulnerabilities.**
+MIT License - Use freely for personal and commercial projects. See [LICENSE](LICENSE).
 
 ---
 
-## 🙏 Credits
+## Reporting Security Issues
 
-Built with:
+Found a vulnerability in this template? See [SECURITY.md](SECURITY.md) for reporting instructions.
+
+Do not open public issues for security vulnerabilities.
+
+---
+
+## Credits
+
 - [Gitleaks](https://github.com/gitleaks/gitleaks) - Fast secret scanning
 - [TruffleHog](https://github.com/trufflesecurity/trufflehog) - Secret verification
 - [CodeQL](https://codeql.github.com/) - Code vulnerability analysis
+- [Semgrep](https://semgrep.dev) - Static analysis
+- [OSSF Scorecard](https://github.com/ossf/scorecard) - Supply chain security
 - [Dependabot](https://github.com/dependabot) - Dependency updates
 - [GitHub Actions](https://github.com/features/actions) - CI/CD automation
 
 ---
 
-## 🌟 Support This Project
-
-If this template helped secure your projects:
-- ⭐ Star this repository
-- 🔄 Share with your team
-- 📝 Contribute improvements
-- 🐛 Report issues
-
----
-
-**Template Version:** 1.0.0  
-**Maintained by:** [professorkilo](https://github.com/professorkilo)  
-**Last Updated:** January 2026
-
----
-
-**Ready to secure your projects?** Click "Use this template" to get started! 🚀
+**Template Version:** 2.0.0
+**Maintained by:** [professorkilo](https://github.com/professorkilo)
+**Last Updated:** November 2026
