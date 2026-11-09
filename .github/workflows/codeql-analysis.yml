@@ -9,10 +9,10 @@ on:
     - cron: '0 0 * * 0'  # Weekly on Sunday at midnight UTC
   workflow_dispatch:  # Allow manual trigger
 
-# Cancel outdated runs on same branch
+# Scheduled runs must never cancel each other; push/PR runs cancel stale siblings.
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
+  group: ${{ github.workflow }}-${{ github.event_name == 'schedule' && 'schedule' || github.ref }}
+  cancel-in-progress: ${{ github.event_name != 'schedule' }}
 
 # Least privilege permissions
 permissions:

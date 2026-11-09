@@ -1,0 +1,5 @@
+# CODEOWNERS - all changes require review by the template maintainer
+* @professorkilo
+
+# Workflow and security config changes require explicit review
+.github/ @professorkilo
