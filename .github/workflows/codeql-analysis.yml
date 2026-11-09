@@ -35,7 +35,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11  # v4.1.1
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
 
       - name: Detect if language exists
         id: detect
@@ -77,7 +77,7 @@ jobs:
 
       - name: Initialize CodeQL
         if: steps.detect.outputs.exists == 'true'
-        uses: github/codeql-action/init@e2b3eafc8d227b0241d48be5f425d47c2d750a13  # v3.26.10
+        uses: github/codeql-action/init@52cf1852265d99e9bea071b03366fc777a602909  # codeql-bundle-v2.27.4
         with:
           languages: ${{ matrix.language }}
           # Optional: Add custom queries
@@ -85,11 +85,11 @@ jobs:
 
       - name: Autobuild
         if: steps.detect.outputs.exists == 'true'
-        uses: github/codeql-action/autobuild@e2b3eafc8d227b0241d48be5f425d47c2d750a13  # v3.26.10
+        uses: github/codeql-action/autobuild@52cf1852265d99e9bea071b03366fc777a602909  # codeql-bundle-v2.27.4
 
       - name: Perform CodeQL Analysis
         if: steps.detect.outputs.exists == 'true'
-        uses: github/codeql-action/analyze@e2b3eafc8d227b0241d48be5f425d47c2d750a13  # v3.26.10
+        uses: github/codeql-action/analyze@52cf1852265d99e9bea071b03366fc777a602909  # codeql-bundle-v2.27.4
         with:
           category: "/language:${{ matrix.language }}"
           # Upload results to Security tab
